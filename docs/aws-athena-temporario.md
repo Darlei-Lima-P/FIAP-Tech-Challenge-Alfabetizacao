@@ -35,10 +35,10 @@ O upload da Bronze, da Silver detalhada e dos microdados de alunos não é neces
 Criar o workgroup `fiap_tc_alfabetizacao_wg` com:
 
 - Athena engine version 3;
-- resultado das consultas em `s3://<bucket>/athena-results/`;
+- resultados gerenciados pelo Athena, com retenção de 24 horas (opção padrão do console);
 - configurações do workgroup substituindo as configurações do cliente;
 - criptografia SSE-S3;
-- limite de 256 MB lidos por consulta.
+Não foi configurado limite de dados lidos nem alertas nesta prova temporária; as consultas de aceite são pequenas e devem ser encerradas após a validação.
 
 No Query Editor, selecionar esse workgroup. Abrir `sql/athena/create_gold_tables.sql`, substituir `SEU_BUCKET` pelo nome criado e executar as instruções. Em seguida, executar `sql/athena/consultas_gold.sql`.
 
@@ -68,7 +68,7 @@ As imagens podem ser armazenadas em `docs/evidencias/aws/`. Não publicar dados 
 
 Depois de salvar as evidências:
 
-1. Executar `DROP DATABASE IF EXISTS fiap_tc_alfabetizacao CASCADE;` no Athena.
+1. Executar `DROP DATABASE IF EXISTS fiap_tc_alfabetizacao CASCADE;` no Athena (o schema foi criado com `CREATE SCHEMA`).
 2. Excluir o workgroup `fiap_tc_alfabetizacao_wg`.
 3. Esvaziar completamente e excluir o bucket temporário.
 4. Confirmar que o banco, o workgroup e o bucket não existem mais em `sa-east-1`.

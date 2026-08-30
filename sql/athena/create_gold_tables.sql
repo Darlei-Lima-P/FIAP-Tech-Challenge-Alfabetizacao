@@ -1,7 +1,8 @@
 -- Substitua SEU_BUCKET pelo bucket temporário antes da execução.
 -- Execute no workgroup fiap_tc_alfabetizacao_wg, região sa-east-1.
 
-CREATE DATABASE IF NOT EXISTS fiap_tc_alfabetizacao;
+-- Athena aceita CREATE SCHEMA como alias de CREATE DATABASE.
+CREATE SCHEMA IF NOT EXISTS fiap_tc_alfabetizacao;
 
 CREATE EXTERNAL TABLE IF NOT EXISTS fiap_tc_alfabetizacao.gold_indicadores_municipio (
     id_municipio string,
