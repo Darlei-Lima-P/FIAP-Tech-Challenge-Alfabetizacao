@@ -1,0 +1,9 @@
+{
+  "generated_from": "artifacts/pipeline.duckdb",
+  "municipios_2024": 5352,
+  "municipios_atingiram_meta_2024": 2788,
+  "municipios_abaixo_meta_2024": 2444,
+  "brasil_taxa_2024": 59.2,
+  "brasil_meta_2024": 59.9,
+  "brasil_variacao_2024_pp": 3.3000000000000043
+}
