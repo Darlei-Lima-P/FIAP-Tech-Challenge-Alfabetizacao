@@ -1,66 +1,112 @@
-# FIAP Tech Challenge — Avaliação da Alfabetização
+# FIAP Tech Challenge — Pipeline Híbrido para Análise da Alfabetização
 
-## Objetivo
+## Contexto
 
-Este projeto estrutura dados da Avaliação da Alfabetização em uma arquitetura
-medalhão, desde a ingestão dos arquivos de origem até indicadores analíticos
-para município, UF e Brasil.
+A alfabetização na infância é essencial para o desenvolvimento educacional e
+social. O projeto utiliza dados do Indicador Criança Alfabetizada, da Base dos
+Dados, para integrar resultados, metas e microdados educacionais. O indicador
+considera alfabetizado o estudante que atinge o nível definido na escala do
+Saeb e permite acompanhar desigualdades e a evolução das metas até 2030.
 
-## Arquitetura
+O desafio consiste em construir uma plataforma de dados híbrida, escalável e
+confiável para apoiar análises e políticas públicas baseadas em evidências.
+
+## Arquitetura da solução
+
+![Arquitetura completa da solução](docs/arquitetura-completa.png)
 
 ```text
-RAW → BRONZE → SILVER → GOLD → consultas e visualizações
+Fontes educacionais
+        ↓
+Ingestão batch + streaming simulado
+        ↓
+Amazon S3: Bronze → Silver → Gold
+        ↓
+Catálogo e consultas analíticas
+        ↓
+Visualizações, monitoramento e aplicações de IA
 ```
 
-- **RAW:** arquivos CSV de origem.
-- **Bronze:** dados convertidos para Parquet Snappy e particionados por ano.
-- **Silver:** dados tipados, padronizados, integrados e submetidos a regras de qualidade.
-- **Gold:** indicadores, metas, rankings, evolução e cobertura para análise.
+- **Bronze:** preservação dos dados ingeridos em Parquet Snappy, particionados por ano.
+- **Silver:** limpeza, tipagem, padronização, integração e validações de qualidade.
+- **Gold:** indicadores por município, UF e Brasil, metas, rankings e evolução temporal.
+- **Consumo:** consultas SQL, visualizações, dashboards e aplicações de inteligência artificial.
 
-O diagrama da arquitetura inicial está em
-[`docs/arquitetura-solucao.png`](docs/arquitetura-solucao.png). A evolução das
-Fases 2 e 3 está documentada em
-[`docs/arquitetura-fases-2-3.md`](docs/arquitetura-fases-2-3.md).
+O fluxo batch processa o histórico completo. O streaming simulado representa a
+chegada contínua de eventos, com 500 registros organizados em lotes.
 
-## Dados e fluxos
+## Resultados
 
-Foram utilizados dados da **Avaliação da Alfabetização**, disponibilizados pela
-Base dos Dados. A base de alunos possui 3.867.999 registros, referentes a 2023
-e 2024.
-
-O projeto contempla dois fluxos:
-
-- **Batch:** processamento integral dos CSVs de alunos, resultados e metas.
-- **Streaming simulado:** 500 eventos de alunos, organizados em 5 lotes de 100
-  registros, mantidos separados do processamento batch.
-
-## Implementação
+As três fases técnicas estão concluídas:
 
 | Fase | Entrega | Situação |
 |---|---|---|
-| 1 | Arquitetura, ingestão e Bronze | Concluída |
+| 1 | Arquitetura, ingestão híbrida e Bronze | Concluída |
 | 2 | Tratamento, integração, Silver e qualidade | Concluída |
-| 3 | Gold, consultas, visualizações e validação analítica | Concluída |
+| 3 | Gold, consultas, visualizações e IA aplicada | Concluída |
 
-### Qualidade e Silver
-
-A Fase 2 aplica tipagem, padronização de identificadores, integração de alunos,
-municípios, UFs e metas, além de exportação em Parquet Snappy particionado por
-ano. A execução gera relatórios de qualidade e manifestos. O resultado validado
-foi `PASS_WITH_WARNINGS`, sem erros bloqueantes.
-
-### Indicadores Gold
-
-As tabelas principais geradas são:
+Principais produtos analíticos:
 
 - 10.704 indicadores municipais;
 - 54 indicadores por UF;
-- 2 indicadores nacionais, para 2023 e 2024.
+- 2 indicadores nacionais, referentes a 2023 e 2024;
+- cinco visualizações para metas, evolução e desigualdades territoriais.
 
-Em 2024, o indicador nacional foi 59,2%, com meta de 59,9%, diferença de
--0,7 ponto percentual e evolução de +3,3 pontos percentuais em relação a 2023.
+Em 2024, o indicador nacional foi 59,2%, diante da meta de 59,9%, com evolução
+de +3,3 pontos percentuais em relação a 2023.
 
-## Execução local
+## Qualidade e governança
+
+O pipeline verifica duplicidades, valores ausentes, chaves de relacionamento e
+consistência entre tabelas. Também produz manifestos e relatórios de execução.
+A validação final não apresentou erros bloqueantes.
+
+Os dados individuais permanecem nas camadas de processamento. A camada Gold
+oferece apenas informações agregadas adequadas ao consumo analítico.
+
+## Monitoramento
+
+A arquitetura prevê o Amazon CloudWatch para acompanhar falhas, duração,
+latência e volume processado. EventBridge e Amazon SNS podem distribuir alertas
+operacionais. O Amazon Bedrock pode transformar métricas e relatórios de
+qualidade em resumos objetivos, sugerindo possíveis causas e próximos passos,
+sempre com validação humana.
+
+## Aplicação de inteligência artificial
+
+O Amazon Bedrock pode disponibilizar um assistente analítico sobre a camada
+Gold, permitindo perguntas em linguagem natural, geração de resumos para
+gestores e apoio à interpretação de alertas. Para modelos preditivos tabulares,
+como risco de não atingimento das metas, a camada Gold pode alimentar modelos
+no Amazon SageMaker.
+
+Os usos propostos incluem:
+
+- previsão da evolução da alfabetização;
+- identificação de municípios com maior risco educacional;
+- análise de desigualdades territoriais;
+- síntese de indicadores para políticas públicas;
+- triagem e contextualização de alertas do pipeline.
+
+Detalhes em [`docs/registro-uso-ia.md`](docs/registro-uso-ia.md).
+
+## FinOps
+
+As decisões de arquitetura reduzem custo sem comprometer a análise:
+
+- Parquet e compressão Snappy reduzem armazenamento e leitura;
+- particionamento por ano evita varreduras desnecessárias;
+- consultas sobre a camada Gold reduzem o volume processado;
+- serviços gerenciados e execução sob demanda evitam capacidade ociosa;
+- métricas de uso permitem acompanhar volume, duração e consumo.
+
+## Decisões e trade-offs
+
+- **Batch e streaming:** batch garante reprocessamento histórico; streaming atende eventos recentes e adiciona complexidade operacional.
+- **Data lake e warehouse:** o data lake preserva flexibilidade e baixo custo; a Gold fornece o contrato analítico necessário ao consumo.
+- **Custo e performance:** arquivos colunares, partições e agregações antecipadas favorecem consultas rápidas com menor leitura.
+
+## Execução
 
 Requer Python 3.11 ou superior.
 
@@ -72,33 +118,22 @@ python -m src.pipeline all
 python -m pytest -q
 ```
 
-Resultado de referência da suíte: `9 passed`.
+Resultado de referência: `9 passed`.
 
-## Visualizações e consultas
+## Estrutura e evidências
 
-As cinco visualizações e os resumos analíticos estão em
-[`docs/evidencias/fase-3/`](docs/evidencias/fase-3/). As consultas locais estão
-em [`sql/analytics/consultas_duckdb.sql`](sql/analytics/consultas_duckdb.sql) e
-as consultas analíticas equivalentes em `sql/athena/`.
+- [Mapa das pastas](docs/estrutura-do-projeto.md)
+- [Handoff técnico das Fases 2 e 3](docs/handoff-fases-2-3.md)
+- [Registro e proposta de uso de IA](docs/registro-uso-ia.md)
+- [Visualizações e resumos analíticos](docs/evidencias/fase-3/)
 
-## Estrutura e documentação
+As consultas locais estão em `sql/analytics/`, e os artefatos SQL da camada de
+consulta estão em `sql/athena/`.
 
-O mapa completo de pastas está em
-[`docs/estrutura-do-projeto.md`](docs/estrutura-do-projeto.md).
+## Tecnologias
 
-- [`docs/handoff-fases-2-3.md`](docs/handoff-fases-2-3.md): regras, resultados e evidências das Fases 2 e 3.
-- [`docs/registro-uso-ia.md`](docs/registro-uso-ia.md): registro de uso de IA no desenvolvimento.
-- [`docs/evidencias/fase-3/`](docs/evidencias/fase-3/): gráficos, CSVs e resumo de indicadores.
+Python, Pandas, DuckDB, PyArrow, Parquet, Amazon S3, AWS Glue Data Catalog,
+Amazon Athena, Amazon CloudWatch, Amazon Bedrock e Amazon SageMaker.
 
-## Tecnologias e decisões
-
-Python, Pandas, DuckDB, PyArrow, Parquet, Snappy e consultas SQL foram usados
-para priorizar processamento reproduzível, armazenamento colunar e consultas
-por período. O particionamento por ano reduz o volume lido em análises com
-recorte temporal.
-
-## Status final
-
-As três fases técnicas estão implementadas e os testes automatizados foram
-aprovados. O fechamento da entrega depende da revisão da equipe e da gravação
-do vídeo executivo.
+O código, os testes e a documentação estão versionados em branches de
+desenvolvimento e integrados à branch principal do projeto.

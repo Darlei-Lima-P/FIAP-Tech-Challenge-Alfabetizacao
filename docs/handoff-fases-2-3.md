@@ -43,7 +43,7 @@ As tabelas principais são:
 
 Também foram geradas tabelas auxiliares de evolução, ranking, resumo por UF, metas em formato longo e cobertura de qualidade.
 
-As consultas locais estão em `sql/analytics/consultas_duckdb.sql`. Os DDLs e as consultas equivalentes para Athena estão em `sql/athena/`.
+As consultas locais estão em `sql/analytics/consultas_duckdb.sql`. Os artefatos da camada de consulta estão em `sql/athena/`.
 
 As cinco visualizações e os resumos em CSV/JSON estão em `docs/evidencias/fase-3/`:
 

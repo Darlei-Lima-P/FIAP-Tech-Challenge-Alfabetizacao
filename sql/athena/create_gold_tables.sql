@@ -1,4 +1,4 @@
--- Substitua SEU_BUCKET pelo bucket temporário antes da execução.
+-- Substitua SEU_BUCKET pelo bucket de dados do projeto antes da execução.
 -- Execute no workgroup fiap_tc_alfabetizacao_wg, região sa-east-1.
 
 -- Execute uma instrução por vez no Query Editor do Athena.

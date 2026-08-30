@@ -8,6 +8,7 @@ FIAP-Tech-Challenge-Alfabetizacao/
 ├── docs/
 │   ├── evidencias/fase-3/  # visualizações e resumos analíticos
 │   ├── arquitetura-solucao.png
+│   ├── arquitetura-completa.png
 │   ├── arquitetura-fases-2-3.md
 │   ├── handoff-fases-2-3.md
 │   └── registro-uso-ia.md

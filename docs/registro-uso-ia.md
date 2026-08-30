@@ -1,23 +1,42 @@
-# Registro de uso de IA
+# Aplicação de inteligência artificial
 
-## Finalidade
+## Apoio à construção
 
-Ferramentas de IA generativa foram utilizadas como apoio ao desenvolvimento,
-revisão e documentação do projeto. As decisões técnicas, a validação dos
-resultados e a aprovação final permaneceram sob responsabilidade da equipe.
+A inteligência artificial apoiou a interpretação dos requisitos, a organização
+do plano de execução e a revisão de código, testes, consultas e documentação.
+As decisões arquiteturais e a validação dos resultados permaneceram sob
+responsabilidade da equipe.
 
-## Uso realizado
+## Uso na operação diária
 
-- apoio à leitura dos requisitos e organização do plano de execução;
-- auxílio na implementação e revisão do pipeline Silver e Gold;
-- elaboração e revisão de testes, consultas SQL e documentação técnica;
-- apoio na criação de descrições para arquitetura, evidências e README.
+O serviço proposto para IA generativa é o **Amazon Bedrock**. Ele pode consumir
+o contexto agregado da camada Gold e apoiar dois fluxos:
 
-## Validação humana
+1. **Assistente analítico:** respostas em linguagem natural, resumos de metas e
+   comparação entre municípios, UFs e Brasil.
+2. **Monitoria inteligente:** métricas do CloudWatch e relatórios de qualidade
+   são encaminhados por EventBridge para uma função de tratamento. O Bedrock
+   resume o alerta, classifica a severidade e sugere verificações. O Amazon SNS
+   distribui a notificação para a equipe.
 
-Todo código e texto gerado ou sugerido foi revisado pela equipe. Os resultados
-foram verificados pela execução local do pipeline, pela suíte automatizada e
-pela conferência dos indicadores analíticos.
+O Bedrock não altera dados nem executa correções automaticamente. Alertas e
+recomendações exigem validação humana e acesso controlado por IAM.
 
-Nenhuma credencial, dado pessoal identificável ou informação financeira foi
-incluída nos comandos, prompts ou evidências do projeto.
+## Modelos preditivos
+
+Para predição tabular, a camada Gold pode alimentar modelos no **Amazon
+SageMaker**, por exemplo:
+
+- probabilidade de um município não atingir sua meta;
+- previsão de evolução do indicador;
+- identificação de grupos com maior vulnerabilidade educacional.
+
+O Bedrock atua na interação, explicação e síntese; o SageMaker é responsável
+pelo treinamento e disponibilização dos modelos preditivos.
+
+## Privacidade e governança
+
+As aplicações de IA devem consumir preferencialmente dados Gold agregados. Não
+devem enviar microdados identificáveis para modelos generativos. Logs,
+permissões, prompts e respostas devem seguir políticas de retenção, auditoria e
+menor privilégio.
