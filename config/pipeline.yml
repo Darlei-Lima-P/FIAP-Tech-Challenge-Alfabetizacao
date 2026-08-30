@@ -1,0 +1,33 @@
+project:
+  name: fiap-tech-challenge-alfabetizacao
+  region: sa-east-1
+
+paths:
+  bronze: data/bronze
+  silver: data/silver
+  gold: data/gold
+  artifacts: artifacts
+
+tables:
+  alunos:
+    keys: [ano, id_municipio, id_escola, id_aluno]
+  municipio:
+    keys: [ano, id_municipio, rede_codigo]
+  uf:
+    keys: [ano, sigla_uf, rede_codigo]
+  meta_brasil:
+    keys: [ano, rede_codigo]
+  meta_municipio:
+    keys: [ano, id_municipio, rede_codigo]
+  meta_uf:
+    keys: [ano, sigla_uf, rede_codigo]
+
+quality:
+  level_sum_tolerance_pp: 0.05
+  reconciliation_warning_pp: 1.0
+
+network_codes:
+  2: Estadual
+  3: Municipal
+  4: Privada
+  5: Publica
