@@ -1,6 +1,6 @@
 # Handoff técnico — Fases 2 e 3
 
-Este documento registra o que foi implementado sem alterar a documentação final da Fase 1. O README definitivo, o registro de uso de IA e o roteiro do vídeo permanecem como atividades de fechamento da equipe.
+Este documento registra a implementação técnica das Fases 2 e 3. O README e o registro de uso de IA complementam este handoff; a gravação do vídeo permanece como atividade de fechamento da equipe.
 
 ## Fase 2 — Silver e qualidade
 
@@ -68,10 +68,8 @@ python -m pytest -q
 
 Resultado local validado: `9 passed`.
 
-## Itens de fechamento da equipe
+## Fechamento da equipe
 
-- incorporar ao README apenas as seções aprovadas pela equipe;
-- acrescentar as evidências reais do S3 e do Athena;
-- registrar o uso de IA conforme as regras da disciplina;
-- preparar e gravar o vídeo de até cinco minutos;
-- confirmar os links do repositório e do vídeo antes da entrega.
+- revisar o README e este handoff antes da entrega;
+- gravar o vídeo executivo de até cinco minutos;
+- confirmar os links finais do repositório e do vídeo.
