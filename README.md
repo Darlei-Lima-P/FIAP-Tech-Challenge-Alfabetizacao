@@ -157,6 +157,9 @@ Streaming simulado, com aproximadamente **57,4 MiB**.
 
 As camadas do data lake são organizadas no Amazon S3:
 
+- **Bucket:** `fiap-tech-challenge-alfabetizacao-data`
+- **Região:** `sa-east-1`
+
 ```text
 s3://fiap-tech-challenge-alfabetizacao-data/
 ├── bronze/
