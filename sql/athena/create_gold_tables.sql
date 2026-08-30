@@ -1,6 +1,7 @@
 -- Substitua SEU_BUCKET pelo bucket temporário antes da execução.
 -- Execute no workgroup fiap_tc_alfabetizacao_wg, região sa-east-1.
 
+-- Execute uma instrução por vez no Query Editor do Athena.
 -- Athena aceita CREATE SCHEMA como alias de CREATE DATABASE.
 CREATE SCHEMA IF NOT EXISTS fiap_tc_alfabetizacao;
 

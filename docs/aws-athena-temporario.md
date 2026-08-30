@@ -13,8 +13,12 @@ No bucket, manter o bloqueio total de acesso público, criptografia padrão SSE-
 
 ```text
 gold/
-athena-results/
 ```
+
+O workgroup usa resultados gerenciados pelo Athena (retenção de 24 horas),
+portanto não é necessário criar um prefixo próprio para resultados de
+consulta. Se `athena-results/` já existir no bucket, ele pode permanecer vazio
+ou ser removido durante a limpeza.
 
 Não é necessário configurar alertas, QuickSight, Glue Crawler, Glue Job, Lambda, KMS própria ou capacidade provisionada.
 
@@ -40,7 +44,7 @@ Criar o workgroup `fiap_tc_alfabetizacao_wg` com:
 - criptografia SSE-S3;
 Não foi configurado limite de dados lidos nem alertas nesta prova temporária; as consultas de aceite são pequenas e devem ser encerradas após a validação.
 
-No Query Editor, selecionar esse workgroup. Abrir `sql/athena/create_gold_tables.sql`, substituir `SEU_BUCKET` pelo nome criado e executar as instruções. Em seguida, executar `sql/athena/consultas_gold.sql`.
+No Query Editor, selecionar esse workgroup. Abrir `sql/athena/create_gold_tables.sql`, substituir `SEU_BUCKET` pelo nome criado e executar uma instrução por vez (o editor do Athena executa uma consulta por envio). Em seguida, executar as consultas selecionadas de `sql/athena/consultas_gold.sql`.
 
 Valores de aceite esperados:
 
