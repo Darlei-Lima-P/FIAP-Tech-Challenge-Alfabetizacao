@@ -123,6 +123,9 @@ Resultado de referência: `9 passed`.
 ## Estrutura e evidências
 
 - [Mapa das pastas](docs/estrutura-do-projeto.md)
+- `data/bronze/`: dados de entrada em Parquet
+- `data/silver/`: dados tratados, integrados e validados
+- `data/gold/`: indicadores e agregações analíticas
 - [Handoff técnico das Fases 2 e 3](docs/handoff-fases-2-3.md)
 - [Registro e proposta de uso de IA](docs/registro-uso-ia.md)
 - [Visualizações e resumos analíticos](docs/evidencias/fase-3/)

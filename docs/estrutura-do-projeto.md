@@ -4,7 +4,9 @@
 FIAP-Tech-Challenge-Alfabetizacao/
 ├── config/                 # parâmetros do pipeline
 ├── data/
-│   └── bronze/             # Parquets de entrada processados
+│   ├── bronze/             # dados de entrada em Parquet
+│   ├── silver/             # dados tratados, integrados e validados
+│   └── gold/               # indicadores e agregações analíticas
 ├── docs/
 │   ├── evidencias/fase-3/  # visualizações e resumos analíticos
 │   ├── arquitetura-solucao.png
@@ -25,6 +27,5 @@ FIAP-Tech-Challenge-Alfabetizacao/
 └── README.md
 ```
 
-As saídas completas das camadas Silver e Gold, os artefatos de execução e os
-dados RAW são gerados localmente e permanecem fora do Git por volume e por não
-serem necessários para reproduzir o código.
+As camadas Bronze, Silver e Gold estão incluídas no repositório para permitir a
+inspeção dos dados e dos resultados produzidos pelo pipeline.

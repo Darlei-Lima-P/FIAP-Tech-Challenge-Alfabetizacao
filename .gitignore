@@ -4,8 +4,3 @@ data/raw/
 .pytest_cache/
 .ipynb_checkpoints/
 artifacts/
-
-# Saidas completas geradas localmente. O Git recebe apenas codigo,
-# manifestos agregados e evidencias sem dados individuais de alunos.
-data/silver/**/*.parquet
-data/gold/**/*.parquet
