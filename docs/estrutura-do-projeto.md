@@ -12,7 +12,7 @@ FIAP-Tech-Challenge-Alfabetizacao/
 │   ├── arquitetura-solucao.png
 │   ├── arquitetura-completa.png
 │   ├── arquitetura-fases-2-3.md
-│   ├── handoff-fases-2-3.md
+│   ├── implementacao-fases-2-3.md
 │   └── registro-uso-ia.md
 ├── sql/
 │   ├── analytics/          # consultas DuckDB

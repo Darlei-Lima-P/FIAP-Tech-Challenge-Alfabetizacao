@@ -106,7 +106,7 @@ As decisões de arquitetura reduzem custo sem comprometer a análise:
 - **Data lake e warehouse:** o data lake preserva flexibilidade e baixo custo; a Gold fornece o contrato analítico necessário ao consumo.
 - **Custo e performance:** arquivos colunares, partições e agregações antecipadas favorecem consultas rápidas com menor leitura.
 
-## Execução
+## Reprodução e validação
 
 Requer Python 3.11 ou superior.
 
@@ -126,12 +126,12 @@ Resultado de referência: `9 passed`.
 - `data/bronze/`: dados de entrada em Parquet
 - `data/silver/`: dados tratados, integrados e validados
 - `data/gold/`: indicadores e agregações analíticas
-- [Handoff técnico das Fases 2 e 3](docs/handoff-fases-2-3.md)
+- [Implementação técnica das Fases 2 e 3](docs/implementacao-fases-2-3.md)
 - [Registro e proposta de uso de IA](docs/registro-uso-ia.md)
 - [Visualizações e resumos analíticos](docs/evidencias/fase-3/)
 
-As consultas locais estão em `sql/analytics/`, e os artefatos SQL da camada de
-consulta estão em `sql/athena/`.
+As definições e consultas do Amazon Athena estão em `sql/athena/`. Consultas
+complementares de validação estão versionadas em `sql/analytics/`.
 
 ## Tecnologias
 

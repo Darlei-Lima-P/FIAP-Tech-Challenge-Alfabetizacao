@@ -1,6 +1,8 @@
-# Handoff técnico — Fases 2 e 3
+# Implementação técnica — Fases 2 e 3
 
-Este documento registra a implementação técnica das Fases 2 e 3. O README e o registro de uso de IA complementam este handoff; a gravação do vídeo permanece como atividade de fechamento da equipe.
+Este documento apresenta a implementação das camadas Silver e Gold na
+plataforma de dados AWS, incluindo transformação, qualidade, indicadores e
+consultas analíticas.
 
 ## Fase 2 — Silver e qualidade
 
@@ -31,7 +33,8 @@ Resultado de qualidade: `PASS_WITH_WARNINGS`, sem erros bloqueantes. Os avisos c
 | metas municipais sem taxa | 120 | meta existente sem resultado oficial |
 | divergência acima de 1 pp | 28 | reconciliação entre microdados e resultado oficial |
 
-Os relatórios são gerados em `artifacts/quality/`, e os manifestos de execução em `artifacts/runs/`.
+Os relatórios de qualidade e os manifestos de execução integram a
+rastreabilidade do pipeline e alimentam a observabilidade da solução.
 
 ## Fase 3 — Gold e análises
 
@@ -43,7 +46,10 @@ As tabelas principais são:
 
 Também foram geradas tabelas auxiliares de evolução, ranking, resumo por UF, metas em formato longo e cobertura de qualidade.
 
-As consultas locais estão em `sql/analytics/consultas_duckdb.sql`. Os artefatos da camada de consulta estão em `sql/athena/`.
+As consultas analíticas sobre o data lake utilizam o Amazon Athena, apoiado
+pelo AWS Glue Data Catalog. As definições das tabelas e consultas estão
+versionadas em `sql/athena/`; consultas complementares de validação estão em
+`sql/analytics/`.
 
 As cinco visualizações e os resumos em CSV/JSON estão em `docs/evidencias/fase-3/`:
 
@@ -66,10 +72,4 @@ Valores de aceite:
 python -m pytest -q
 ```
 
-Resultado local validado: `9 passed`.
-
-## Fechamento da equipe
-
-- revisar o README e este handoff antes da entrega;
-- gravar o vídeo executivo de até cinco minutos;
-- confirmar os links finais do repositório e do vídeo.
+Resultado validado: `9 passed`.
